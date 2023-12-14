@@ -9,8 +9,6 @@ The purpose of this API is to provide a serverless solution for managing a colle
 
 [Serverless API UML](./assets/peopleUML.png)
 
-## DynamoDB Deployment Link: 
-[DynamoDB Deployed](https://jlf3ozk3fl.execute-api.us-east-1.amazonaws.com/dev/people)
 
 ### Collaborators
 - **ChatGPT by OpenAI**: Used as a programming partner for brainstorming ideas, debugging code, formulating tests, and drafting documentation. ChatGPT's contributions were invaluable in enhancing the efficiency and quality of the development process.
@@ -27,21 +25,36 @@ A .env file is included in local repository. A .env-sample file is uploaded to t
 
 #### How to use your library (where applicable)
 
-## Features
 
-The "DynamoDB: people" API boasts a collection of features that allow for seamless management of person records within an AWS DynamoDB table. The API provides a comprehensive set of endpoints for CRUD operations, each one designed to integrate smoothly with AWS services.
+## API Endpoints
 
-### AWS Process Overview
+The following section outlines the root URL, available routes, expected inputs, and outputs for the API.
 
-- **API Gateway Setup**: Initiate the process by creating an API Gateway named "people-router". This serves as the entry point for the client requests to interact with the API.
+### Root URL
 
-- **DynamoDB Table Creation**: Establish a DynamoDB table titled "people", designed to store the records. Each record encompasses attributes such as ID, first name, last name, and city, which align with the structured schema expected by the API.
+The root URL to access the API is:
+`https://jlf3ozk3fl.execute-api.us-east-1.amazonaws.com/dev/people`
 
-- **Lambda Functions**: Implement a series of AWS Lambda functions: `handleCreate`, `handleRead`, `handleUpdate`, and `handleDelete`. Each function is dedicated to a specific CRUD operation, providing the logic necessary to interact with the DynamoDB table.
+### Routes
 
-- **Permissions**: Assign the appropriate permissions to the Lambda functions, in this case, `AmazonDynamoDBFullAccess`, which grants full access to the DynamoDB resources required for the operations.
+- **POST `/people`**
+  - Input: JSON object in the request body containing `firstName`, `lastName`, and `city`.
+  - Output: JSON object representing the newly created record, including its `id`.
 
-- **Testing**: Conduct thorough tests of the Lambda functions through the API Gateway to ensure reliability and correctness of the API. This testing phase is crucial to validate the behavior of each endpoint under various scenarios.
+- **GET `/people`**
+  - Input: None required.
+  - Output: Array of JSON objects representing all the records in the database.
 
-By integrating these features and following the AWS process, the API facilitates robust data management capabilities, catering to the needs of applications requiring serverless architectures and database interactions.
+- **GET `/people/{id}`**
+  - Input: `id` parameter in the path to specify the record.
+  - Output: JSON object representing one record, identified by `id`.
 
+- **PUT `/people/{id}`**
+  - Input: `id` parameter in the path to specify the record, and a JSON object in the request body with fields to update.
+  - Output: JSON object representing the updated record, including its `id`.
+
+- **DELETE `/people/{id}`**
+  - Input: `id` parameter in the path to specify the record to be deleted.
+  - Output: Confirmation message indicating the deletion was successful.
+
+Each route is designed to be intuitive and RESTful, ensuring ease of use and compatibility with standard HTTP operations.
